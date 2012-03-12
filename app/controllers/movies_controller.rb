@@ -7,7 +7,16 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.all
+    sorting_key = params[:sort_by]
+    # puts "NKtest = " + sorting_key.to_s
+    # @movies = Movie.all  # this was the old code
+    if (sorting_key == "title")
+     @movies = Movie.find(:all, :order => "title")
+    elsif (sorting_key == "release_date")
+     @movies = Movie.find(:all, :order => "release_date")
+    else
+     @movies = Movie.all
+    end
   end
 
   def new
