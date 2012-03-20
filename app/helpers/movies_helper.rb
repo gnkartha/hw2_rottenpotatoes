@@ -5,6 +5,9 @@ module MoviesHelper
   end
   def title_hilite
     sorting_key = params[:sort_by]
+    if sorting_key == nil
+      sorting_key = session[:sort_by]
+    end
     if (sorting_key == "title")
      if @release_hilite == true
        @release_hilite = false
@@ -19,6 +22,9 @@ module MoviesHelper
   end
   def release_hilite
     sorting_key = params[:sort_by]
+    if sorting_key == nil
+      sorting_key = session[:sort_by]
+    end
     if (sorting_key == "release_date")
      if @title_hilite == true
        @title_hilite = false
