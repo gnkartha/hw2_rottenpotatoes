@@ -5,7 +5,7 @@
   Include:
   - @all_ratings.each do |rating|
     = rating
-    = check_box_tag "ratings[#{rating}]", "hack to ignore value", if @checked_hash == nil then  false else  @checked_hash.keys.include?(rating) end
+    = check_box_tag "ratings[#{rating}]", "hack to ignore value", if @checked_hash == nil and session[:ratings] == nil then  false elsif @checked_hash != nil then  @checked_hash.keys.include?(rating) elsif session[:ratings] != nil then session[:ratings].keys.include?(rating) end
   = submit_tag 'Refresh', :id => "ratings_submit"
 
 

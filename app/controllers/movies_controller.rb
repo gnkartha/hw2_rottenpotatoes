@@ -8,20 +8,39 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = ['G', 'PG', 'PG-13', 'R']
+    #debugger
+    temp = session[:ratings]
+    #debugger
+    if temp != nil
+      @saved_ratings_hash = temp
+    end
+    if @saved_ratings_hash != nil
+      saved_ratings_array = @saved_ratings_hash.keys
+    else
+      saved_ratings_array = @all_ratings
+    end
     @checked_hash = params[:ratings]
+
     if @checked_hash != nil
       checked_array = @checked_hash.keys
+      session[:ratings] = @checked_hash
     else
-      checked_array = @all_ratings
+      checked_array = saved_ratings_array
     end
+
     #debugger
     sorting_key = params[:sort_by]
+    if sorting_key == nil
+      sorting_key = session[:sort_by]
+    end
     # @movies = Movie.all  # this was the old code
     if (sorting_key == "title")
      @movies = Movie.find(:all, :order => "title", :conditions => {:rating => checked_array})
+     session[:sort_by] = sorting_key
     # debugger
     elsif (sorting_key == "release_date")
      @movies = Movie.find(:all, :order => "release_date", :conditions => {:rating => checked_array})
+      session[:sort_by] = sorting_key
     elsif
       @movies = Movie.find(:all, :conditions => {:rating => checked_array})
     end
