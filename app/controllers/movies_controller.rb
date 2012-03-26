@@ -9,6 +9,7 @@ class MoviesController < ApplicationController
   def index
     @all_ratings = ['G', 'PG', 'PG-13', 'R']
     #debugger
+    # testing ..
     temp = session[:ratings]
     #debugger
     if temp != nil
